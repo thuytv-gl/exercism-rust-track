@@ -36,5 +36,23 @@ pub enum Error {
 ///    However, your function must be able to process input with leading 0 digits.
 ///
 pub fn convert(number: &[u32], from_base: u32, to_base: u32) -> Result<Vec<u32>, Error> {
-    todo!("Convert {number:?} from base {from_base} to base {to_base}")
+    if to_base < 2 { return Err(Error::InvalidOutputBase); }
+    if from_base < 2 { return Err(Error::InvalidInputBase); }
+
+    println!("number = {:?}", number);
+    let mut base_a = number.iter().try_fold(0, |acc, n| {
+        println!("i = {}, n = {}", acc, *n);
+        if *n >= from_base { Err(Error::InvalidDigit(*n)) }
+        else { Ok(acc * from_base + *n) }
+    })?;
+
+    let mut base_b = Vec::<u32>::new();
+    loop {
+        base_b.push(base_a % to_base);
+        base_a /= to_base;
+        if base_a == 0 {
+            base_b.reverse();
+            break Ok(vec![]);
+        }
+    }
 }
