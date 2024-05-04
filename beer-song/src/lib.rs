@@ -1,0 +1,19 @@
+pub fn verse(n: u32) -> String {
+    match n {
+        0 => "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n".to_string(),
+        1 => "1 bottle of beer on the wall, 1 bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n".to_string(),
+        2 => "2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n".to_string(),
+        _ => format!("{b} bottles of beer on the wall, {b} bottles of beer.\nTake one down and pass it around, {bm1} bottles of beer on the wall.\n", b=n, bm1=n-1),
+    }
+}
+
+pub fn sing(start: u32, end: u32) -> String {
+    let mut ret = String::new();
+    for v in (end..=start).rev() {
+        ret.push_str(verse(v).to_owned().as_str());
+        if v > end {
+            ret.push('\n');
+        }
+    }
+    ret
+}
