@@ -52,7 +52,7 @@ pub fn convert(number: &[u32], from_base: u32, to_base: u32) -> Result<Vec<u32>,
         base_a /= to_base;
         if base_a == 0 {
             base_b.reverse();
-            break Ok(vec![]);
+            break Ok(base_b);
         }
     }
 }
